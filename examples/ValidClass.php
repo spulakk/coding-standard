@@ -12,24 +12,30 @@ class ValidClass
 
 	private const DREAM_COUNT = 250;
 
+	/**
+	 * @var array
+	 */
 	public $listOfEmotions = [
 		'love',
-		'happiness',
+		'happiness'
 	];
 
 	protected $listOfSkills = [
 		'empathy',
-		'respect',
+		'respect'
 	];
 
 	private $listOfElements = [
 		'Nette',
-		'Latte',
+		'Latte'
 	];
 
 
-	public function __construct()
-	{
+	public function __construct
+	(
+		array $listOfEmotions
+	) {
+		$this->listOfEmotions = $listOfEmotions;
 	}
 
 
@@ -38,9 +44,28 @@ class ValidClass
 	}
 
 
-	public function validMethod()
+	/**
+	 * Foo
+	 *
+	 * @todo Add bar
+	 */
+	public function validMethod(): int
 	{
-		return true;
+		$a = 0;
+
+		while($a < 10)
+		{
+			if(true)
+			{
+				$a++;
+			}
+			else
+			{
+				$a--;
+			}
+		}
+
+		return $a;
 	}
 
 

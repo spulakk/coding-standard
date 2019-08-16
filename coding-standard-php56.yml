@@ -51,9 +51,6 @@ services:
 
     # Functions should be used with `$strict` param set to `true`
     PhpCsFixer\Fixer\Strict\StrictParamFixer: ~
-    # replaces is_null(parameter) expression with `null === parameter`.
-    PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer:
-        use_yoda_style: false
     # Calling `unset` on multiple items should be done in one call.
     PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveUnsetsFixer: ~
     # Replace all `<>` with `!=`.
@@ -68,8 +65,8 @@ services:
     # use short array fixes
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
-    # use trailing command in last array element
-    PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer: ~
+    # do not use trailing comma in last array element
+    Nette\CodingStandard\Fixer\ArrayNotation\NoTrailingCommaInMultilineArrayFixer: ~
     # PHP single-line arrays should not have trailing comma.
     PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer: ~
     # In array declaration, there MUST NOT be a whitespace before each comma.
@@ -120,7 +117,7 @@ services:
 
     # Constants - https://nette.org/en/coding-standard#toc-constants
 
-    # constant names are CAPITALIZED (manuall fixing only :()
+    # constant names are CAPITALIZED (manual fixing only :()
     PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff: ~
 
     # Class Properties - https://nette.org/en/coding-standard#toc-class-properties
@@ -136,7 +133,7 @@ services:
     # Checks that there's a single space between a typehint and a parameter name and no whitespace between a nullability symbol and a typehint
     SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff: ~
     # Spaces should be properly placed in a function declaration.
-    PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer: ~
+    Nette\CodingStandard\Fixer\FunctionNotation\FunctionDeclarationFixer: ~
     # In function arguments there must not be arguments with default values before non-default ones.
     PhpCsFixer\Fixer\FunctionNotation\NoUnreachableDefaultArgumentValueFixer: ~
 
@@ -147,8 +144,8 @@ services:
         elements: ['property', 'method']
 
     # Constants and Properties should be separated by 1 blank line
-#	PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
-#		elements: [const, property]
+    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
+        elements: [const, property]
 
     # Last property and 1st method should be separated by 2 spaces
     Nette\CodingStandard\Fixer\ClassNotation\LastPropertyAndFirstMethodSeparationFixer:
@@ -182,8 +179,6 @@ services:
     PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: ~
     # Cast should be written in lower case.
     PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer: ~
-    # Replaces `intval`, `floatval`, `doubleval`, `strval` and `boolval` function calls with according type casting operator
-    PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer: ~
     # Short cast `bool` using double exclamation mark should not be used
     PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer: ~
     # Cast `(boolean)` and `(integer)` should be written as `(bool)` and `(int)`, `(double)` and `(real)` as `(float)`
@@ -211,23 +206,25 @@ services:
 
     # Comments
 
-    # Docblocks should have the same indentation as the documented subject.
-    PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer: ~
     # There should not be any empty comments.
     PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer: ~
-    # There should not be empty PHPDoc blocks.
-    PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: ~
-    # Phpdocs should start and end with content, excluding the very first and last line of the docblocks.
-    PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: ~
-    # Single-line comments comments with only one line of actual content should use the `//` syntax.
+    # Single-line comments with only one line of actual content should use the `//` syntax.
     PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer:
         comment_types: ['hash']
-    # Require comments with single-line content to be written as one-liners
-    SlevomatCodingStandard\Sniffs\Commenting\RequireOneLinePropertyDocCommentSniff: ~
+    # There should not be empty PHPDoc blocks.
+    PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: ~
+    # Docblocks should have the same indentation as the documented subject.
+    PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer: ~
+    # Phpdocs should start and end with content, excluding the very first and last line of the docblocks.
+    PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: ~
+    # Some annotations should not be used anymore
+    Nette\CodingStandard\Fixer\Phpdoc\PhpdocAnnotationFixer:
+        annotations: ['param', 'flash', 'redraw', 'redirect']
 
 
     # Properties MUST not be explicitly initialized with `null`.
     PhpCsFixer\Fixer\ClassNotation\NoNullPropertyInitializationFixer: ~
 
+    # There must be a comment when fall-through is intentional in a non-empty case body.
     PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer:
         comment_text: 'break omitted'
