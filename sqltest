@@ -45,7 +45,7 @@ if($problemCount == 0)
 }
 else
 {
-	print "[WARNING] All tests finished. " . $problemCount . " problem(s) found" . PHP_EOL;
+	print "[WARNING] All tests finished. " . $problemCount . " problem(s) found." . PHP_EOL;
 }
 
 
