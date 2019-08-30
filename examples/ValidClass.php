@@ -34,7 +34,8 @@ class ValidClass
 	public function __construct
 	(
 		array $listOfEmotions
-	) {
+	)
+	{
 		$this->listOfEmotions = $listOfEmotions;
 	}
 
