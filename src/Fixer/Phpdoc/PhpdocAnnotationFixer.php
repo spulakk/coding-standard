@@ -13,8 +13,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use Symfony\Component\OptionsResolver\Options;
 
 final class PhpdocAnnotationFixer extends AbstractFixer implements ConfigurationDefinitionFixerInterface
 {
@@ -42,6 +40,15 @@ public function Foo($id) {}
 ')]
 			]
 		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getPriority()
+	{
+		// should be run before NoEmptyPhpdocFixer
+		return 6;
 	}
 
 	/**

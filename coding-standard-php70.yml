@@ -11,3 +11,5 @@ services:
     # Some annotations should not be used anymore
     Nette\CodingStandard\Fixer\Phpdoc\PhpdocAnnotationFixer:
         annotations: ['param', 'return', 'flash', 'redraw', 'redirect']
+    # Component factory must have a set return type.
+    Nette\CodingStandard\Fixer\ReturnNotation\FactoryReturnTypeFixer: ~

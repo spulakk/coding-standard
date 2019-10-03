@@ -74,6 +74,8 @@ class ValidClass
 	{
 		$sum = $someArgument + $anotherArgument;
 		$sum += 5;
+
+		return $sum;
 	}
 
 
