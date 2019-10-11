@@ -272,7 +272,7 @@ class Foo
 						$tokens->ensureWhitespaceAtIndex($index + 1, 0, '');
 					}
 
-					$parenthesisEndIndex = $tokens->getNextTokenOfKind($nextNonWhitespaceIndex, [')']);
+					$parenthesisEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextNonWhitespaceIndex);//$tokens->getNextTokenOfKind($nextNonWhitespaceIndex, [')']);
 
 					if($tokens[$parenthesisEndIndex + 1]->isWhitespace(" "))
 					{
@@ -285,42 +285,6 @@ class Foo
 				}
 			}
 		}
-	}
-
-
-	/**
-	 * @param Tokens $tokens
-	 * @param int    $index
-	 *
-	 * @return string
-	 */
-	private function detectIndent(Tokens $tokens, $index)
-	{
-		while (true) {
-			$whitespaceIndex = $tokens->getPrevTokenOfKind($index, [[T_WHITESPACE]]);
-
-			if ($whitespaceIndex === null) {
-				return '';
-			}
-
-			$whitespaceToken = $tokens[$whitespaceIndex];
-
-			if (strpos($whitespaceToken->getContent(), "\n") !== false) {
-				break;
-			}
-
-			$prevToken = $tokens[$whitespaceIndex - 1];
-
-			if ($prevToken->isGivenKind([T_OPEN_TAG, T_COMMENT]) && substr($prevToken->getContent(), -1) === "\n") {
-				break;
-			}
-
-			$index = $whitespaceIndex;
-		}
-
-		$explodedContent = explode("\n", $whitespaceToken->getContent());
-
-		return end($explodedContent);
 	}
 
 

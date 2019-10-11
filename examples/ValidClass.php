@@ -81,5 +81,9 @@ class ValidClass
 
 	private function internalMethod()
 	{
+		foreach($this->anotherMethod(1, 2) as $key => $value)
+		{
+			echo 'bla';
+		}
 	}
 }
