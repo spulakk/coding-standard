@@ -46,15 +46,24 @@ interface IValidClassFactory
 	{
 		$content = $tokens->generateCode();
 
-		$newContent = Preg::replace('/(interface I(\w+)Factory\s*{.*function )(create\(\))/s', '$1$3: $2', $content);
+		$string = '/(interface I(\w+)Factory\s*{.*function create\(\))(.*);/s';
 
-		$newTokens = Tokens::fromCode($newContent);
+		Preg::match($string, $content, $matches);
 
-		foreach ($newTokens as $index => $token)
+		if(empty($matches[3]))
 		{
-			$newTokens[$index] = new Token($token->getContent());
-		}
+			$newString = $matches[1] . ': ' . $matches[2] . ';';
 
-		$tokens->overrideRange(0, $tokens->count() - 1, $newTokens);
+			$newContent = preg_replace($string, $newString, $content);
+
+			$newTokens = Tokens::fromCode($newContent);
+
+			foreach ($newTokens as $index => $token)
+			{
+				$newTokens[$index] = new Token($token->getContent());
+			}
+
+			$tokens->overrideRange(0, $tokens->count() - 1, $newTokens);
+		}
 	}
 }

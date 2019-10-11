@@ -272,7 +272,7 @@ class Foo
 						$tokens->ensureWhitespaceAtIndex($index + 1, 0, '');
 					}
 
-					$parenthesisEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextNonWhitespaceIndex);//$tokens->getNextTokenOfKind($nextNonWhitespaceIndex, [')']);
+					$parenthesisEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextNonWhitespaceIndex);
 
 					if($tokens[$parenthesisEndIndex + 1]->isWhitespace(" "))
 					{
