@@ -250,6 +250,7 @@ class Foo
 	private function fixSpaceAroundToken(Tokens $tokens)
 	{
 		$controlTokens = $this->getControlTokens();
+		$controlContinuationTokens = $this->getControlContinuationTokens();
 
 		for($index = $tokens->count() - 1; 0 <= $index; --$index)
 		{
@@ -267,7 +268,7 @@ class Foo
 				$braceStartIndex = $tokens->getNextTokenOfKind($index, ['{']);
 				$nestWhitespace = $tokens[$braceStartIndex + 1]->getContent();
 
-				if($tokens[$index - 1]->isWhitespace() && !$tokens[$prevNonWhitespaceIndex]->equals(';'))
+				if($token->isGivenKind($controlContinuationTokens) && $tokens[$index - 1]->isWhitespace() && !$tokens[$prevNonWhitespaceIndex]->equals(';'))
 				{
 					$tokens->ensureWhitespaceAtIndex($index - 1, 1, mb_substr($nestWhitespace, 0, -1));
 				}
