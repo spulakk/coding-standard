@@ -77,7 +77,7 @@ function checkEncoding(\mysqli $mysqli)
     $charsetArray = $mysqli->query("SELECT default_character_set_name FROM information_schema.SCHEMATA")->fetch_all();
     $collationArray = $mysqli->query("SELECT default_collation_name FROM information_schema.SCHEMATA")->fetch_all();
 
-	$skippedDatabaseArray = ["information_schema", "mysql", "performance_schema", "phpmyadmin", "storage_test"];
+	$skippedDatabaseArray = ["information_schema", "mysql", "performance_schema", "phpmyadmin"];
     $wrongEncodingDatabaseArray = [];
     $i = 0;
 
