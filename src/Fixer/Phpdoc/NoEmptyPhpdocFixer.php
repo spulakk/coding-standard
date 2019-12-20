@@ -71,15 +71,27 @@ final class NoEmptyPhpdocFixer extends AbstractFixer
                 if($tokens[$index - 1]->isWhitespace())
                 {
                     $nextIndex1 = $tokens->getNextMeaningfulToken($index);
-                    $nextToken1 = $tokens[$nextIndex1];
                     $nextIndex2 = $tokens->getNextMeaningfulToken($nextIndex1);
-                    $nextToken2 = $tokens[$nextIndex2];
                     $nextIndex3 = $tokens->getNextMeaningfulToken($nextIndex2);
+                    $nextToken1 = $tokens[$nextIndex1];
+                    $nextToken2 = $tokens[$nextIndex2];
                     $nextToken3 = $tokens[$nextIndex3];
 
-                    if(($nextToken1->isKeyword() && $nextToken2->isGivenKind(T_FUNCTION)) || ($nextToken1->isKeyword() && $nextToken2->isKeyword() && $nextToken3->isGivenKind(T_FUNCTION)))
+                    $prevIndex = $tokens->getPrevMeaningfulToken($index);
+                    $prevToken = $tokens[$prevIndex];
+
+                    if($prevToken->equals('}') &&
+                        (($nextToken1->isKeyword() && $nextToken2->isGivenKind(T_FUNCTION)) || ($nextToken1->isKeyword() && $nextToken2->isKeyword() && $nextToken3->isGivenKind(T_FUNCTION))))
                     {
                         $tokens->ensureWhitespaceAtIndex($index - 1, 0, "\n\n\n\t");
+                    }
+                    elseif($prevToken->equals(';'))
+                    {
+                        $tokens->ensureWhitespaceAtIndex($index - 1, 0, "\n\n\t");
+                    }
+                    elseif($prevToken->equals('{'))
+                    {
+                        $tokens->ensureWhitespaceAtIndex($index - 1, 0, "\n\t");
                     }
                 }
             }
