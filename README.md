@@ -2,6 +2,8 @@
 
 _Based on Nette Coding Standard_
 
+__Moved to: https://github.com/modul-is/coding-standard__
+
 ## How to use
 
 #### Check PHP files
