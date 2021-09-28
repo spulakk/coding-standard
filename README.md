@@ -2,7 +2,7 @@
 
 _Based on Nette Coding Standard_
 
-__Moved to: https://github.com/modul-is/coding-standard__
+__Moved to: [modul-is/coding-standard](https://github.com/modul-is/coding-standard)__
 
 ## How to use
 
